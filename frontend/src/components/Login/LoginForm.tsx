@@ -5,7 +5,7 @@ import { UserLoginFormType } from "../../models/user/UserLoginFormType";
 import { loginFormSchema } from "../../utils/validators/user";
 import { Link as RouterLink } from "react-router-dom";
 
-interface Props {}
+interface Props { }
 
 export const LoginForm = (props: Props) => {
   const loginForm = useFormik<UserLoginFormType>({
@@ -14,7 +14,7 @@ export const LoginForm = (props: Props) => {
     validationSchema: loginFormSchema,
   });
 
-  function handleSubmit() {}
+  function handleSubmit() { }
 
   return (
     <Box width="70%">
@@ -52,7 +52,7 @@ export const LoginForm = (props: Props) => {
             </Link>
           </Box>
 
-          <Button mt={4} variant="solid" px={5} bg="purple.500" color="white" type="submit">
+          <Button mt={4} variant="solid" px={5} bg="purple.500" color="white" type="submit" _hover={{ bg: 'purple.700' }}>
             Fazer login
           </Button>
 

@@ -60,6 +60,7 @@ export const RegisterPassword = ({ registerPasswordForm, onBack }: Props) => {
             color="white"
             type="submit"
             rightIcon={<FontAwesomeIcon icon={faCheck} />}
+            _hover={{ bg: 'purple.700' }}
           >
             Finalizar Cadastro
           </Button>

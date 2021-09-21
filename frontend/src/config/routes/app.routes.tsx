@@ -1,10 +1,12 @@
 import React from "react";
 
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { Login } from "../../pages/Login";
 import { Register } from "../../pages/Register";
+import { Home } from '../../pages/Home';
+import { Event } from '../../pages/Event';
 
-interface Props {}
+interface Props { }
 
 export const AppRoutes = (props: Props) => {
   return (
@@ -12,6 +14,9 @@ export const AppRoutes = (props: Props) => {
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
+        <Route path="/" component={Home} exact />
+        <Route path="/event/:id" component={Event} exact />
+        <Route path="*" component={() => <Redirect to='/' />} />
       </Switch>
     </BrowserRouter>
   );

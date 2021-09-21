@@ -103,6 +103,7 @@ export const RegisterForm = ({ registerForm }: Props) => {
             type="submit"
             rightIcon={<FontAwesomeIcon icon={faArrowRight} />}
             disabled={!registerForm.dirty || !registerForm.isValid}
+            _hover={{ bg: 'purple.700' }}
           >
             Próximo
           </Button>
