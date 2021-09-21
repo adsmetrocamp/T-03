@@ -1,26 +1,19 @@
-import { Box, Heading, Text, FormControl, FormLabel, Input, Divider, Button, Link, Checkbox } from "@chakra-ui/react";
-import React from "react";
-import { useFormik } from "formik";
-import { registerFormSchema } from "../../utils/validators/user";
+import { Box, Heading, Text, FormControl, FormLabel, Input, Button, Link, Checkbox } from "@chakra-ui/react";
+import { FormikProps } from "formik";
 import { UserRegisterFormType } from "../../models/user/UserRegisterFormType";
-import { Link as RouterLink, useHistory } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import DatePicker from "react-datepicker";
 
 import InputMask from "react-input-mask";
 
-interface Props {}
+interface Props {
+  registerForm: FormikProps<UserRegisterFormType>;
+}
 
-export const RegisterForm = (props: Props) => {
-  const registerForm = useFormik<UserRegisterFormType>({
-    initialValues: new UserRegisterFormType(),
-    onSubmit: handleSubmit,
-    validationSchema: registerFormSchema,
-  });
-
-  function handleSubmit(value: UserRegisterFormType) {
-    console.log(value);
-  }
+export const RegisterForm = ({ registerForm }: Props) => {
 
   return (
     <Box width="70%">
@@ -33,14 +26,26 @@ export const RegisterForm = (props: Props) => {
         <Box mt={8}>
           <FormControl isInvalid={!!registerForm.errors.name}>
             <FormLabel>Nome</FormLabel>
-            <Input placeholder="Digite seu nome" name="name" onChange={registerForm.handleChange} maxLength={255} />
+            <Input
+              placeholder="Digite seu nome"
+              name="name"
+              onChange={registerForm.handleChange}
+              maxLength={255}
+              value={registerForm.values.name}
+            />
             <Text color="red.600" mt={1}>
               {registerForm.errors.name}
             </Text>
           </FormControl>
           <FormControl isInvalid={!!registerForm.errors.email} mt={4}>
             <FormLabel>Email</FormLabel>
-            <Input placeholder="Digite seu email" name="email" onChange={registerForm.handleChange} maxLength={255} />
+            <Input
+              placeholder="Digite seu email"
+              name="email"
+              onChange={registerForm.handleChange}
+              maxLength={255}
+              value={registerForm.values.email}
+            />
             <Text color="red.600" mt={1}>
               {registerForm.errors.email}
             </Text>
@@ -76,24 +81,12 @@ export const RegisterForm = (props: Props) => {
               {registerForm.errors.cpf}
             </Text>
           </FormControl>
-          <FormControl mt={4} isInvalid={!!registerForm.errors.password}>
-            <FormLabel>Senha</FormLabel>
-            <Input placeholder="Digite sua senha" type="password" name="password" onChange={registerForm.handleChange} maxLength={255} />
 
-            <Text color="red.600" mt={1}>
-              {registerForm.errors.password}
-            </Text>
-          </FormControl>
-          <FormControl mt={4} isInvalid={!!registerForm.errors.passwordConfirmation}>
-            <FormLabel>Confirmação de senha</FormLabel>
-            <Input placeholder="Digite a confirmação de senha" type="password" name="passwordConfirmation" onChange={registerForm.handleChange} maxLength={255} />
-
-            <Text color="red.600" mt={1}>
-              {registerForm.errors.passwordConfirmation}
-            </Text>
-          </FormControl>
-
-          <Checkbox colorScheme="purple.500" onChange={() => {}} isChecked={true} my={8}>
+          <Checkbox
+            colorScheme="purple"
+            onChange={() => registerForm.setFieldValue('acceptedTerms', !registerForm.values.acceptedTerms)}
+            isChecked={registerForm.values.acceptedTerms} my={8}
+          >
             Eu concordo com os{" "}
             <Link color="purple.500" fontWeight="600">
               Termos de Uso e Privacidade
@@ -102,13 +95,23 @@ export const RegisterForm = (props: Props) => {
 
           <br />
 
-          <Button variant="solid" px={5} bg="purple.500" color="white" type="submit">
-            Cadastrar
+          <Button
+            variant="solid"
+            px={5}
+            bg="purple.500"
+            color="white"
+            type="submit"
+            rightIcon={<FontAwesomeIcon icon={faArrowRight} />}
+            disabled={!registerForm.dirty || !registerForm.isValid}
+          >
+            Próximo
           </Button>
 
-          <Button variant="outline" px={5} ml={3}>
-            Voltar ao login
-          </Button>
+          <RouterLink to='/login'>
+            <Button variant="outline" px={5} ml={3}>
+              Voltar ao login
+            </Button>
+          </RouterLink>
         </Box>
       </form>
     </Box>

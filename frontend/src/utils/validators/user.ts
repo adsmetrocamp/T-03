@@ -2,7 +2,7 @@ import * as yup from "yup";
 import { SchemaOf } from "yup";
 import { UserLoginFormType } from "../../models/user/UserLoginFormType";
 import "../../config/locale";
-import { UserRegisterFormType } from "../../models/user/UserRegisterFormType";
+import { UserPasswordRegisterFormType, UserRegisterFormType } from "../../models/user/UserRegisterFormType";
 import { cpf as cpfValidator } from "cpf-cnpj-validator";
 
 export const loginFormSchema: SchemaOf<UserLoginFormType> = yup
@@ -23,6 +23,13 @@ export const registerFormSchema: SchemaOf<UserRegisterFormType> = yup
       .required()
       .label("CPF")
       .test("isValidCpf", "Insira um CPF válido", (v) => cpfValidator.isValid(v as string)),
+    birthDate: yup.date().max(new Date()).required().defined().label("Data de Nascimento") as any,
+    acceptedTerms: yup.boolean().defined().isTrue(),
+  })
+  .defined();
+
+export const userPasswordRegisterSchema: SchemaOf<UserPasswordRegisterFormType> = yup
+  .object({
     password: yup.string().min(8).defined().label("Senha"),
     passwordConfirmation: yup
       .string()
@@ -30,6 +37,5 @@ export const registerFormSchema: SchemaOf<UserRegisterFormType> = yup
       .required()
       .label("Confirmação de Senha")
       .oneOf([yup.ref("password"), null], "As senhas não coincidem"),
-    birthDate: yup.date().max(new Date()).required().defined().label("Data de Nascimento") as any,
   })
   .defined();
