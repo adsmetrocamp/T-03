@@ -5,11 +5,11 @@ import org.hibernate.validator.constraints.br.CPF;
 import javax.validation.constraints.*;
 import java.util.Date;
 
-public class UsuarioDTO {
+public class UserDTO {
 
     @NotNull
     @Size(max = 50)
-    private String nome;
+    private String name;
 
     @NotNull
     @Email
@@ -17,11 +17,11 @@ public class UsuarioDTO {
 
     @NotNull
     @Size(min = 8)
-    private String senha;
+    private String password;
 
     @NotNull
     @Past
-    private Date nascimento;
+    private Date birthDate;
 
     @NotNull
     @CPF
