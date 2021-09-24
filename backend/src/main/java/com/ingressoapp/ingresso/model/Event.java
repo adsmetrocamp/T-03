@@ -1,6 +1,7 @@
 package com.ingressoapp.ingresso.model;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -12,8 +13,8 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "events")
+public class Event {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
@@ -25,16 +26,25 @@ public class User {
     private String name;
 
     @Column(nullable = false)
-    private String email;
+    private String description;
 
     @Column(nullable = false)
-    private String password;
+    private Date eventDate;
 
     @Column(nullable = false)
-    private Date birthDate;
+    private Double price;
 
     @Column(nullable = false)
-    private String cpf;
+    private int totalTickets;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private EventCategory category;
+
+    @Column(nullable = false)
+    private String about;
+
+    @Column(nullable = false)
+    private String image;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -43,4 +53,8 @@ public class User {
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date modifiedAt;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @ManyToOne
+    private User createdByUser;
 }

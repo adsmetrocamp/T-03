@@ -12,8 +12,8 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "event_categories")
+public class EventCategory {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
@@ -24,18 +24,6 @@ public class User {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private String email;
-
-    @Column(nullable = false)
-    private String password;
-
-    @Column(nullable = false)
-    private Date birthDate;
-
-    @Column(nullable = false)
-    private String cpf;
-
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
@@ -43,4 +31,8 @@ public class User {
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date modifiedAt;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @ManyToOne
+    private User createdByUser;
 }

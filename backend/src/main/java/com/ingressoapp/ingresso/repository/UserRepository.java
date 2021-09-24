@@ -6,4 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
+    User findOneByCpf(String cpf);
+    User findOneByEmail(String email);
+    User findOneByEmailAndPassword(String email, String password);
 }
