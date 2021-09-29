@@ -36,6 +36,6 @@ export const eventRegisterSchema: SchemaOf<EventRegisterFormType> = yup
             )
             .label('Data do Evento') as any,
         image: yup.mixed().required().nullable() as any,
-        categoryId: yup.string().required(),
+        categoryId: yup.string().required().label('Categoria'),
     })
     .defined() as any;

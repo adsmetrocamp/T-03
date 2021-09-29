@@ -24,6 +24,7 @@ import {
     Button,
     InputGroup,
     InputLeftAddon,
+    Select,
 } from '@chakra-ui/react';
 import ReactDatePicker from 'react-datepicker';
 import ReactInputMask from 'react-input-mask';
@@ -32,17 +33,22 @@ import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 import { eventRegisterSchema } from '../utils/validators/events';
+import useSWR from 'swr';
+import EventCategoryService from '../services/EventCategoryService';
 
 interface Props {}
 
 export const EventRegister = (props: Props) => {
+    const { data: categories } = useSWR<EventCategory[]>(
+        '/events/categories',
+        async () => (await EventCategoryService.getAllCategories()).data
+    );
+
     const registerEventForm = useFormik<EventRegisterFormType>({
         initialValues: new EventRegisterFormType(),
         onSubmit: () => {},
         validationSchema: eventRegisterSchema,
     });
-
-    console.log(registerEventForm.errors);
 
     const onDropEventThumbnail = useCallback((files) => {
         if (files[0]) {
@@ -124,6 +130,35 @@ export const EventRegister = (props: Props) => {
                     </Text>
 
                     <Grid templateColumns="repeat(2, 1fr)" gap={6} mt={10}>
+                        <GridItem>
+                            <FormControl
+                                isInvalid={
+                                    !!registerEventForm.errors.categoryId
+                                }
+                            >
+                                <FormLabel>Categoria</FormLabel>
+
+                                <Select
+                                    placeholder="Selecione a categoria do evento"
+                                    name="categoryId"
+                                    onChange={registerEventForm.handleChange}
+                                    value={registerEventForm.values.categoryId}
+                                >
+                                    {categories?.map((c) => (
+                                        <option value={c.id as string}>
+                                            {c.name}
+                                        </option>
+                                    ))}
+                                </Select>
+
+                                <Text color="red.600" mt={1}>
+                                    {registerEventForm.errors.categoryId}
+                                </Text>
+                            </FormControl>
+                        </GridItem>
+
+                        <GridItem />
+
                         <GridItem>
                             <FormControl
                                 isInvalid={!!registerEventForm.errors.name}

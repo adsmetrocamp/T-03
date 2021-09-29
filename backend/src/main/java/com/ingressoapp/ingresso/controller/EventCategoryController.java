@@ -41,7 +41,7 @@ public class EventCategoryController {
     }
 
     @PostMapping()
-    private EventCategoryDto addCategory(@Valid EventCategoryDto categoryDto) {
+    private EventCategoryDto addCategory(@Valid @RequestBody EventCategoryDto categoryDto) {
         EventCategory categoryToCreate = categoryDto.toEventCategory();
         categoryToCreate.setId(null);
 
@@ -51,7 +51,7 @@ public class EventCategoryController {
     }
 
     @PutMapping("/{id}")
-    private EventCategoryDto updateCategory(@Valid EventCategoryDto categoryDto, @PathVariable("id") UUID id) {
+    private EventCategoryDto updateCategory(@Valid @RequestBody EventCategoryDto categoryDto, @PathVariable("id") UUID id) {
         EventCategory categoryToUpdate = categoryDto.toEventCategory();
         categoryToUpdate.setId(id);
 

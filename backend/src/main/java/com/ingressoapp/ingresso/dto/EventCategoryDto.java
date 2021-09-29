@@ -20,8 +20,7 @@ public class EventCategoryDto {
     public EventCategory toEventCategory(){
         EventCategory category = new EventCategory();
 
-        String treatedCategoryName = StringUtils.capitalize(this.name);
-        treatedCategoryName = treatedCategoryName.trim();
+        String treatedCategoryName = StringUtils.capitalize(this.name.trim());
 
         category.setName(treatedCategoryName);
         category.setId(this.id);
