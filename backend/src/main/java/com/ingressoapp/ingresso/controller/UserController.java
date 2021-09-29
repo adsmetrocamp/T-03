@@ -13,7 +13,7 @@ import javax.validation.ValidationException;
 import java.nio.file.AccessDeniedException;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 @Valid
 public class UserController {
 
@@ -53,7 +53,7 @@ public class UserController {
         User findUser = userRepository.findOneByEmailAndPassword(userLoginRequest.getEmail(), userLoginRequest.getPassword());
 
         if (findUser == null) {
-            throw new ForbiddenException();
+            throw new ForbiddenException("Email ou senha incorretos");
         }
 
         return findUser;

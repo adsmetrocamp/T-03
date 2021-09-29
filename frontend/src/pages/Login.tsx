@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react';
 
-import { LoginForm } from "../components/Login/LoginForm";
-import { AuthLayout } from "../components/Layouts/AuthLayout";
+import { LoginForm } from '../components/Login/LoginForm';
+import { AuthLayout } from '../components/Layouts/AuthLayout';
 
-interface Props { }
+interface Props {}
 
 export const Login = (props: Props) => {
-  return (
-    <AuthLayout>
-      <LoginForm />
-    </AuthLayout>
-  );
+    return (
+        <AuthLayout>
+            <LoginForm />
+        </AuthLayout>
+    );
 };

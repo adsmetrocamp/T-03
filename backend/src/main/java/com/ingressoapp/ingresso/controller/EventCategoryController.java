@@ -19,7 +19,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/event/category")
+@RequestMapping("/events/categories")
 @Valid
 public class EventCategoryController {
 
